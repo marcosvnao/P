@@ -1,0 +1,58 @@
+menu = """
+Selecione uma das opções: 
+[1] Depósito
+[2] Saque
+[3] Extrato
+[4] Sair do programa
+"""
+
+saldo = 0
+limite_saque_op = 500
+extrato = ""
+numero_saques = 3
+LIMITE_SAQUES = 3
+
+
+
+while True:
+    opc = int(input(menu))
+
+    if opc == 1:
+        while True:
+            quant = float(input('Valor a ser depositado: R$: '))
+            if quant < 0:
+                print('Valor inválido! ')
+            else:
+                saldo += quant
+                print("Deposito realizado com sucesso")
+                extrato += f"Depósito de R$ {quant:.2f} -- Saldo: R$ {saldo:.2f}\n"
+                break
+    elif opc == 2:
+        while True:
+            print (f"Você tem direito a {numero_saques } saques.")
+            
+            if numero_saques == 0:
+                print('\033[31mNúmero de saques diários excedidos!\033[m')
+                break
+            quant = float(input('Valor a ser Sacado(Digite 0 caso deseje cancelar a operação): R$: '))
+            if quant < 0:
+                print('\033[31mValor inválido! \033[m')
+            elif quant > 500:
+                print('\033[31mVocê só pode sacar no máximo R$ 500.00\033[m')
+            elif quant == 0:
+                break
+            elif quant > saldo:
+                print('\033[31mSaldo insuficiente!\033[m')
+                print(f'Seu saldo: R$ {saldo:.2f}')
+            else:
+                saldo -= quant
+                extrato += f"Saque de R$ {quant:.2f} -- Saldo: R$ {saldo:.2f}\n"
+                numero_saques -= 1
+                break
+    elif opc == 3:
+        print(extrato)
+    elif opc == 4:
+        break
+    else:
+        print('\033[31mOpção Inválida!\033[m')
+print("0brigado por usar o nosso banco")
